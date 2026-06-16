@@ -7,7 +7,7 @@ Berikut adalah panduan lengkap langkah demi langkah untuk menggunakan semua fitu
 ---
 
 ## 1. Login ke Sistem
-1. Buka URL aplikasi (contoh: `https://ansi-laundry.vercel.app`).
+1. Buka URL aplikasi (contoh: `https://laundry-j23.vercel.app`).
 2. Anda akan otomatis diarahkan ke halaman **Login**.
 3. Masukkan kredensial bawaan berikut (kecuali sudah Anda ubah di database):
    - **Username:** `admin`
