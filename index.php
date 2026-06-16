@@ -47,7 +47,7 @@ $kuota_warning = $conn->query("
            (m.kuota_awal - m.kuota_terpakai) AS sisa
     FROM membership m
     JOIN pelanggan p ON m.pelanggan_id = p.id
-    HAVING sisa <= " . KUOTA_WARNING . "
+    WHERE (m.kuota_awal - m.kuota_terpakai) <= " . KUOTA_WARNING . "
 ");
 
 require_once __DIR__ . '/pages/layout/header.php';
