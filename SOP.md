@@ -79,8 +79,7 @@ Halaman ini khusus memfilter transaksi yang butuh kurir (layanan *Antar* atau *J
 ## 8. Laporan Pemasukan (`Menu: Laporan`)
 1. Klik menu **Laporan**.
 2. Di sini Anda bisa melihat ringkasan pemasukan harian, mingguan (dalam tahun ini), dan bulanan.
-
-
+3. Anda bisa memfilter bulan dan tahun spesifik di bagian atas untuk melihat histori laporan lama.
 ---
 
 ## 9. Logout
