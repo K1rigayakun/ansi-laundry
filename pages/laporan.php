@@ -13,23 +13,23 @@ $tahun   = clean($_GET['tahun'] ?? date('Y'));
 // ── PEMASUKAN HARIAN (bulan ini atau pilihan) ──
 [$y, $m] = explode('-', $bulan . '-01');
 $harian = $conn->query("
-    SELECT DATE(created_at) AS tgl,
+    SELECT CAST(created_at AS DATE) AS tgl,
            COUNT(*) AS jumlah_trx,
            SUM(total_harga) AS total
     FROM transaksi
-    WHERE YEAR(created_at) = '$y' AND MONTH(created_at) = '$m'
-    GROUP BY DATE(created_at)
+    WHERE EXTRACT(YEAR FROM created_at) = '$y' AND EXTRACT(MONTH FROM created_at) = '$m'
+    GROUP BY CAST(created_at AS DATE)
     ORDER BY tgl ASC
 ");
 
 // ── PEMASUKAN MINGGUAN (tahun ini) ──
 $mingguan = $conn->query("
     SELECT WEEK(created_at, 1) AS minggu,
-           MIN(DATE(created_at)) AS mulai,
+           MIN(CAST(created_at AS DATE)) AS mulai,
            COUNT(*) AS jumlah_trx,
            SUM(total_harga) AS total
     FROM transaksi
-    WHERE YEAR(created_at) = '$tahun'
+    WHERE EXTRACT(YEAR FROM created_at) = '$tahun'
     GROUP BY WEEK(created_at, 1)
     ORDER BY minggu ASC
     LIMIT 52
@@ -37,24 +37,24 @@ $mingguan = $conn->query("
 
 // ── PEMASUKAN BULANAN (tahun ini) ──
 $bulanan = $conn->query("
-    SELECT MONTH(created_at) AS bln,
+    SELECT EXTRACT(MONTH FROM created_at) AS bln,
            MONTHNAME(created_at) AS nama_bulan,
            COUNT(*) AS jumlah_trx,
            SUM(total_harga) AS total
     FROM transaksi
-    WHERE YEAR(created_at) = '$tahun'
-    GROUP BY MONTH(created_at)
+    WHERE EXTRACT(YEAR FROM created_at) = '$tahun'
+    GROUP BY EXTRACT(MONTH FROM created_at)
     ORDER BY bln ASC
 ");
 
 // ── SUMMARY ──
 $total_bulan_ini = $conn->query("
     SELECT SUM(total_harga) FROM transaksi
-    WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())
+    WHERE EXTRACT(MONTH FROM created_at) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM CURRENT_DATE)
 ")->fetch_row()[0] ?? 0;
 
 $total_hari_ini = $conn->query("
-    SELECT SUM(total_harga) FROM transaksi WHERE DATE(created_at) = CURDATE()
+    SELECT SUM(total_harga) FROM transaksi WHERE CAST(created_at AS DATE) = CURRENT_DATE
 ")->fetch_row()[0] ?? 0;
 
 $total_semua = $conn->query("SELECT SUM(total_harga) FROM transaksi")->fetch_row()[0] ?? 0;

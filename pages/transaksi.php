@@ -79,7 +79,7 @@ $filter_status = clean($_GET['status'] ?? '');
 $filter_tanggal = clean($_GET['tanggal'] ?? '');
 $where_parts = [];
 if ($filter_status) $where_parts[] = "t.status = '$filter_status'";
-if ($filter_tanggal) $where_parts[] = "DATE(t.created_at) = '$filter_tanggal'";
+if ($filter_tanggal) $where_parts[] = "CAST(t.created_at AS DATE) = '$filter_tanggal'";
 $where_sql = $where_parts ? 'WHERE ' . implode(' AND ', $where_parts) : '';
 
 $transaksi_list = $conn->query("

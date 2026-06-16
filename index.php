@@ -10,10 +10,10 @@ $activePage = 'dashboard';
 $total_pelanggan = $conn->query("SELECT COUNT(*) FROM pelanggan")->fetch_row()[0];
 $total_transaksi = $conn->query("SELECT COUNT(*) FROM transaksi")->fetch_row()[0];
 
-$r = $conn->query("SELECT SUM(total_harga) FROM transaksi WHERE DATE(created_at) = CURDATE()");
+$r = $conn->query("SELECT SUM(total_harga) FROM transaksi WHERE CAST(created_at AS DATE) = CURRENT_DATE");
 $pemasukan_hari  = $r->fetch_row()[0] ?? 0;
 
-$r2 = $conn->query("SELECT SUM(total_harga) FROM transaksi WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())");
+$r2 = $conn->query("SELECT SUM(total_harga) FROM transaksi WHERE EXTRACT(MONTH FROM created_at) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM CURRENT_DATE)");
 $pemasukan_bulan = $r2->fetch_row()[0] ?? 0;
 
 // ── Transaksi terbaru ──
@@ -30,7 +30,7 @@ $chart_data = [];
 for ($i = 6; $i >= 0; $i--) {
     $date  = date('Y-m-d', strtotime("-$i days"));
     $label = date('d/m', strtotime("-$i days"));
-    $r3 = $conn->query("SELECT SUM(total_harga) FROM transaksi WHERE DATE(created_at) = '$date'");
+    $r3 = $conn->query("SELECT SUM(total_harga) FROM transaksi WHERE CAST(created_at AS DATE) = '$date'");
     $chart_data[] = ['label' => $label, 'value' => $r3->fetch_row()[0] ?? 0];
 }
 

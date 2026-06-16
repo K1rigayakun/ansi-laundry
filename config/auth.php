@@ -53,7 +53,7 @@ function rupiah($amount) {
 // Generate kode transaksi
 function generateKodeTrx($conn) {
     $date = date('Ymd');
-    $result = $conn->query("SELECT COUNT(*) as total FROM transaksi WHERE DATE(created_at) = CURDATE()");
+    $result = $conn->query("SELECT COUNT(*) as total FROM transaksi WHERE CAST(created_at AS DATE) = CURRENT_DATE");
     $row = $result->fetch_assoc();
     $urut = str_pad($row['total'] + 1, 4, '0', STR_PAD_LEFT);
     return "TRX-{$date}-{$urut}";
