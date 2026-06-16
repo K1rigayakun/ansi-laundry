@@ -7,11 +7,11 @@ Berikut adalah panduan lengkap langkah demi langkah untuk menggunakan semua fitu
 ---
 
 ## 1. Login ke Sistem
-1. Buka URL aplikasi (contoh: `https://laundry-j23.vercel.app`).
+1. Buka URL aplikasi (`https://laundry-j23.vercel.app`).
 2. Anda akan otomatis diarahkan ke halaman **Login**.
-3. Masukkan kredensial bawaan berikut (kecuali sudah Anda ubah di database):
+3. Masukkan kredensial bawaan berikut:
    - **Username:** `admin`
-   - **Password:** `admin123`
+   - **Password:** `password`
 4. Klik tombol **Login**. Jika berhasil, Anda akan masuk ke halaman **Dashboard**.
 
 ---
@@ -79,8 +79,7 @@ Halaman ini khusus memfilter transaksi yang butuh kurir (layanan *Antar* atau *J
 ## 8. Laporan Pemasukan (`Menu: Laporan`)
 1. Klik menu **Laporan**.
 2. Di sini Anda bisa melihat ringkasan pemasukan harian, mingguan (dalam tahun ini), dan bulanan.
-3. Anda bisa memfilter bulan dan tahun spesifik di bagian atas untuk melihat histori laporan lama.
-4. Klik tombol **Print Laporan** jika ingin mencetaknya ke printer kasir atau menyimpannya sebagai PDF.
+
 
 ---
 
