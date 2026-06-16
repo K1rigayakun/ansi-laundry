@@ -24,13 +24,13 @@ $harian = $conn->query("
 
 // ── PEMASUKAN MINGGUAN (tahun ini) ──
 $mingguan = $conn->query("
-    SELECT WEEK(created_at, 1) AS minggu,
+    SELECT EXTRACT(WEEK FROM created_at) AS minggu,
            MIN(CAST(created_at AS DATE)) AS mulai,
            COUNT(*) AS jumlah_trx,
            SUM(total_harga) AS total
     FROM transaksi
     WHERE EXTRACT(YEAR FROM created_at) = '$tahun'
-    GROUP BY WEEK(created_at, 1)
+    GROUP BY EXTRACT(WEEK FROM created_at)
     ORDER BY minggu ASC
     LIMIT 52
 ");
@@ -38,7 +38,7 @@ $mingguan = $conn->query("
 // ── PEMASUKAN BULANAN (tahun ini) ──
 $bulanan = $conn->query("
     SELECT EXTRACT(MONTH FROM created_at) AS bln,
-           MONTHNAME(created_at) AS nama_bulan,
+           TO_CHAR(created_at, 'FMMonth') AS nama_bulan,
            COUNT(*) AS jumlah_trx,
            SUM(total_harga) AS total
     FROM transaksi
